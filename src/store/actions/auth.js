@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 export const logout = ()=>{
+    console.log('logout')
     return {
         type : actionTypes.AUTH_LOGOUT
     }
@@ -26,7 +27,7 @@ const authFailure = error=>{
 }
 
 
-export const authenticateUser = (email,password,isSignupRequest)=>{
+export const authenticateUser = (email,password,isSignupRequest,history)=>{
     return async(dispatch) =>{
         try{
             const API_KEY = process.env.REACT_APP_API_KEY
@@ -38,8 +39,10 @@ export const authenticateUser = (email,password,isSignupRequest)=>{
                 returnSecureToken : true
             }
             const authResponse = await axios.post(url,authValues)
+            // TODO : Store Tokens in localStorage
             console.log(authResponse)
             dispatch(authSuccess(authResponse.data.idToken,authResponse.data.localId))
+            history.push('/')
         }catch(error){
             dispatch(authFailure(error))
         }

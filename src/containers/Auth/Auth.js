@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {Formik, Form,ErrorMessage,Field} from 'formik'
-import { Button } from '@material-ui/core'
+import {Formik} from 'formik'
+import { Button, TextField,DialogActions } from '@material-ui/core'
 import {connect} from 'react-redux'
 import classes from './Auth.module.css'
+import {withRouter} from 'react-router-dom'
 import {authenticateUser} from '../../store/actions/index'
 class Auth extends Component{
     state = {
@@ -35,31 +36,61 @@ class Auth extends Component{
                 }
             }
             onSubmit = {({email,password},actions)=>{
-                this.props.authenticate(email,password,this.state.isSignUp)
+                this.props.authenticate(email,password,this.state.isSignUp,this.props.history)
                 actions.setSubmitting(false)
             }}
             >
-            {
-                ({isSubmitting})=>(
-                    <Form>
-                        <Field type='email' name='email'/>
-                        <ErrorMessage name='email' component="div"/>
-                        <Field type='password' name='password'/>
-                        <ErrorMessage name='password' component="div"/>
-                        <Button type='submit' disabled={isSubmitting}>SIGN {this.state.isSignUp?'UP':'IN'}</Button>
-                        <Button type='button' onClick={this.changeSignUpOptions}>SIGN {this.state.isSignUp ? 'IN': 'UP'} INSTEAD</Button>
-                    </Form>
-                )
-            }
+            {(props) => {
+                  const {
+                    values,
+                    touched,
+                    errors,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                  } = props;
+                  return (
+                    <form onSubmit={handleSubmit}>
+                      <TextField
+                        error={errors.email && touched.email}
+                        label="email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={(errors.email && touched.email) && errors.email}
+                        margin="normal"
+                      />
+
+                      <TextField
+                        label="password"
+                        name="password"
+                        type="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={(errors.password && touched.password) && errors.password}
+                        margin="normal"
+                      />
+                      <DialogActions>
+                        <Button type="submit" disabled={isSubmitting}>
+                          SIGN {this.state.isSignUp ? 'UP' : 'IN'}
+                        </Button>
+                        <Button onClick={this.changeSignUpOptions}>SIGN {this.state.isSignUp ? 'IN' : 'UP'} INSTEAD</Button>
+                      </DialogActions>
+                    </form>
+                  );
+                }}
             </Formik>
         </div>
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        authenticate: (email,password,signup) => {
-            dispatch(authenticateUser(email,password,signup))
+        authenticate: (email,password,signup,history) => {
+            dispatch(authenticateUser(email,password,signup,history))
         }
     }
 }
-export default connect(null,mapDispatchToProps)(Auth)
+export default connect(null,mapDispatchToProps)(withRouter(Auth))

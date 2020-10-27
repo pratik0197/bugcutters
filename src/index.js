@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import authReducer from './store/reducers/auth'
+import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers = (process.env.NODE_ENV==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose
 
@@ -16,7 +17,9 @@ const reducer = combineReducers({
 const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)))
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
