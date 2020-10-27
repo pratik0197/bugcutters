@@ -1,0 +1,13 @@
+.Auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.Auth input{
+    display: block;
+}
+.Auth button:hover{
+    color: blue;
+}
