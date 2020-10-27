@@ -2,9 +2,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    flex-direction: column;
+    height: 400px;
 }
-
+.HorizontalCenter{
+    text-align: center;
+}
+.Auth button{
+    margin:  0px 50px;
+}
 .Auth button:hover{
-    color: #3F51B5;
+    color: #1976D2;
 }

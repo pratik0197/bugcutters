@@ -14,21 +14,39 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+
 }))
+const NormalNavLinkStyling = {
+  color : 'white',
+  padding : '0 20px',
+}
+const ActiveNavLinkStyling = {
+  color : 'cyan',
+  borderRadius : '100%',
+  borderColor : 'red',
+  borderWidth : '50px'
+}
+
+const NavLinkStyling = {
+  style : NormalNavLinkStyling,
+  activeStyle : ActiveNavLinkStyling
+}
 const  MenuAppBar = props=> {
   const materialClasses = useStyles();
   const auth = props.isAuthenticated
 
   return (
     <div className={materialClasses.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{
+        background : '#1976D2'
+      }}>
         <Toolbar>
           <Typography variant="h6" className={materialClasses.title}>
             Lorem Ipsum
           </Typography>
-            <NavLink to='/' className={classes.NavigationItems}><Home/></NavLink>
-            <NavLink to='/upload' className={classes.NavigationItems}><CloudUpload/></NavLink>
-            <NavLink to={auth ?'/logout' :'/auth'} className={classes.NavigationItems}>{auth ? <ExitToApp/> : <VpnKey/>}</NavLink>
+            <NavLink to='/' className={classes.NavigationItems} color='primary' {...NavLinkStyling}  ><Home/></NavLink>
+            <NavLink to='/upload' className={classes.NavigationItems} {...NavLinkStyling}><CloudUpload/></NavLink>
+            <NavLink to={auth ?'/logout' :'/auth'} className={classes.NavigationItems} style={NavLinkStyling} {...NavLinkStyling}> {auth ? <ExitToApp/> : <VpnKey/>}</NavLink>
         </Toolbar>
       </AppBar>
     </div>

@@ -18,7 +18,7 @@ class Auth extends Component{
         })
     }
     render(){
-        return <div className={classes.Auth}> 
+        return(<div className={classes.HorizontalCenter}><div className={classes.Auth}> 
             <Formik 
             initialValues = {{email : '',password : ''}}
             validate = {
@@ -84,12 +84,13 @@ class Auth extends Component{
                 }}
             </Formik>
         </div>
+        </div> )
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        authenticate: (email,password,signup,history) => {
-            dispatch(authenticateUser(email,password,signup,history))
+        authenticate: (email,password,signup,) => {
+            dispatch(authenticateUser(email,password,signup))
         }
     }
 }

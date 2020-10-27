@@ -4,7 +4,6 @@ import Auth from './containers/Auth/Auth';
 import Navigation from './components/Navigation/Navigation'
 import ShowCase from './components/ShowCase/ShowCase';
 import Logout from './components/Logout/Logout';
-// TODO : ADD Routing
 class App extends Component{
   render(){
     return (
