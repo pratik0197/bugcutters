@@ -10,7 +10,8 @@ import ex2Suggested from '../../../assets/ex2/suggested.jpg'
 import ex3Output from '../../../assets/ex3/output.jpg'
 import ex3Orig from '../../../assets/ex3/raw.jpg'
 import ex3Suggested from '../../../assets/ex3/suggested.jpg'
-
+import Card from '../Card/Card'
+import Labels from '../../../utility/Labels'
 const Images = props =>{
     const images = [{
             output : ex1Output,
@@ -28,13 +29,26 @@ const Images = props =>{
             suggested : ex3Suggested
         }
     ]    
-    const imageComponent = images.map((imageSet,idx)=>(
-        <div key={idx} className={classes.ImageRow}>
-            <Image src={imageSet.orig}/>
-            <Image src={imageSet.suggested}/>
-            <Image src={imageSet.output}/>
-        </div>
-    ))
+    const imageComponent = images.map((imageSet,idx)=>{
+        const contentDisplay = (
+            <Fragment>
+                <p style={{
+                    display: 'block',
+                    textAlign : 'left',
+                    fontWeight : 'bold',
+                    fontSize : '20px'
+                }}>{Labels[idx]} converted to</p>
+                <Image src={imageSet.orig} />
+                <Image src={imageSet.suggested} />
+                <Image src={imageSet.output} />
+            </Fragment>
+        )
+        return (
+            <div key={idx} className={classes.ImageRow}>
+                <Card content={contentDisplay}/>
+            </div>
+        )
+    })
     return(
         <Fragment>
             {imageComponent}

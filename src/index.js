@@ -7,12 +7,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import authReducer from './store/reducers/auth'
+import clothReducer from './store/reducers/clothes'
 import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers = (process.env.NODE_ENV==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose
 
 const reducer = combineReducers({
-  auth : authReducer
+  auth : authReducer,
+  clothes : clothReducer
 })
 const store = createStore(reducer,composeEnhancers(applyMiddleware(thunk)))
 ReactDOM.render(

@@ -1,9 +1,8 @@
 import React from 'react'
 import classes from './Image.module.css'
 const Image = props =>{
-    console.log(props.src)
     return (
-        <img src={props.src} className={classes.Image} alt='Something'/>
+        <img src={props.src} className={classes[props.className ? props.className : 'Image']} alt={props.alt}/>
     )
 }
 

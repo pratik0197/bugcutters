@@ -42,10 +42,10 @@ const  MenuAppBar = props=> {
       }}>
         <Toolbar>
           <Typography variant="h6" className={materialClasses.title}>
-            Lorem Ipsum
+            Recreate Fashion
           </Typography>
             <NavLink to='/' className={classes.NavigationItems} color='primary' {...NavLinkStyling}  ><Home/></NavLink>
-            <NavLink to='/upload' className={classes.NavigationItems} {...NavLinkStyling}><CloudUpload/></NavLink>
+            <NavLink to='/select' className={classes.NavigationItems} {...NavLinkStyling}><CloudUpload/></NavLink>
             <NavLink to={auth ?'/logout' :'/auth'} className={classes.NavigationItems} style={NavLinkStyling} {...NavLinkStyling}> {auth ? <ExitToApp/> : <VpnKey/>}</NavLink>
         </Toolbar>
       </AppBar>

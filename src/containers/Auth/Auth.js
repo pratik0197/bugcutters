@@ -4,7 +4,8 @@ import { Button, TextField,DialogActions } from '@material-ui/core'
 import {connect} from 'react-redux'
 import classes from './Auth.module.css'
 import {withRouter} from 'react-router-dom'
-import {authenticateUser} from '../../store/actions/index'
+import {authenticateUser, authStart} from '../../store/actions/index'
+import Spinner from '../../components/UI/Spinner/Spinner'
 class Auth extends Component{
     state = {
         isSignUp : true
@@ -18,6 +19,8 @@ class Auth extends Component{
         })
     }
     render(){
+        if(this.props.loading)
+            return <Spinner/>
         return(<div className={classes.HorizontalCenter}><div className={classes.Auth}> 
             <Formik 
             initialValues = {{email : '',password : ''}}
@@ -36,6 +39,7 @@ class Auth extends Component{
                 }
             }
             onSubmit = {({email,password},actions)=>{
+                this.props.start()
                 this.props.authenticate(email,password,this.state.isSignUp,this.props.history)
                 actions.setSubmitting(false)
             }}
@@ -87,11 +91,16 @@ class Auth extends Component{
         </div> )
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        authenticate: (email,password,signup,) => {
-            dispatch(authenticateUser(email,password,signup))
-        }
+        loading: state.auth.loading
     }
 }
-export default connect(null,mapDispatchToProps)(withRouter(Auth))
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        authenticate: (email,password,signup,history) => {
+            dispatch(authenticateUser(email,password,signup,history))
+        },start : ()=>dispatch(authStart())
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Auth))

@@ -2,7 +2,8 @@ import updateObject from '../updateObjects'
 import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     token : null,
-    userId : null
+    userId : null,
+    loading : false
 }
 
 const logout = (state,action)=>{
@@ -20,12 +21,14 @@ const authStart = (state,action)=>{
 const authSuccess = (state,action)=>{
     return updateObject(state,{
         token : action.token,
-        userId : action.userId
+        userId : action.userId,
+        loading  : false
     })
 }
 const authFailure = (state,action)=>{
     return updateObject(state,{
-        error : action.error
+        error : action.error,
+        loading : false
     })
 }
 
